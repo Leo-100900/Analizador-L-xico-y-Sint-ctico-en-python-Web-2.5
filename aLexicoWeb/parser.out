@@ -1,0 +1,351 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    COMA
+    MAYOR
+    MENOR
+    PAREN_L
+    PAREN_R
+    SUMA
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> PROGRAM ID LLAVE_L declaraciones LLAVE_R END
+Rule 2     declaraciones -> declaraciones declaracion
+Rule 3     declaraciones -> declaracion
+Rule 4     declaracion -> INT ID PUNTO_Y_COMA
+Rule 5     declaracion -> READ ID PUNTO_Y_COMA
+Rule 6     declaracion -> PRINTF CADENA PUNTO_Y_COMA
+Rule 7     declaracion -> ID IGUAL expresion PUNTO_Y_COMA
+Rule 8     expresion -> ID MAS ID
+Rule 9     expresion -> ID MENOS ID
+Rule 10    expresion -> ID MULTIPLICACION ID
+Rule 11    expresion -> ID DIVISION ID
+Rule 12    expresion -> NUM
+
+Terminals, with rules where they appear
+
+CADENA               : 6
+COMA                 : 
+DIVISION             : 11
+END                  : 1
+ID                   : 1 4 5 7 8 8 9 9 10 10 11 11
+IGUAL                : 7
+INT                  : 4
+LLAVE_L              : 1
+LLAVE_R              : 1
+MAS                  : 8
+MAYOR                : 
+MENOR                : 
+MENOS                : 9
+MULTIPLICACION       : 10
+NUM                  : 12
+PAREN_L              : 
+PAREN_R              : 
+PRINTF               : 6
+PROGRAM              : 1
+PUNTO_Y_COMA         : 4 5 6 7
+READ                 : 5
+SUMA                 : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+declaracion          : 2 3
+declaraciones        : 1 2
+expresion            : 7
+program              : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . PROGRAM ID LLAVE_L declaraciones LLAVE_R END
+
+    PROGRAM         shift and go to state 2
+
+    program                        shift and go to state 1
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> PROGRAM . ID LLAVE_L declaraciones LLAVE_R END
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) program -> PROGRAM ID . LLAVE_L declaraciones LLAVE_R END
+
+    LLAVE_L         shift and go to state 4
+
+
+state 4
+
+    (1) program -> PROGRAM ID LLAVE_L . declaraciones LLAVE_R END
+    (2) declaraciones -> . declaraciones declaracion
+    (3) declaraciones -> . declaracion
+    (4) declaracion -> . INT ID PUNTO_Y_COMA
+    (5) declaracion -> . READ ID PUNTO_Y_COMA
+    (6) declaracion -> . PRINTF CADENA PUNTO_Y_COMA
+    (7) declaracion -> . ID IGUAL expresion PUNTO_Y_COMA
+
+    INT             shift and go to state 8
+    READ            shift and go to state 9
+    PRINTF          shift and go to state 10
+    ID              shift and go to state 5
+
+    declaraciones                  shift and go to state 6
+    declaracion                    shift and go to state 7
+
+state 5
+
+    (7) declaracion -> ID . IGUAL expresion PUNTO_Y_COMA
+
+    IGUAL           shift and go to state 11
+
+
+state 6
+
+    (1) program -> PROGRAM ID LLAVE_L declaraciones . LLAVE_R END
+    (2) declaraciones -> declaraciones . declaracion
+    (4) declaracion -> . INT ID PUNTO_Y_COMA
+    (5) declaracion -> . READ ID PUNTO_Y_COMA
+    (6) declaracion -> . PRINTF CADENA PUNTO_Y_COMA
+    (7) declaracion -> . ID IGUAL expresion PUNTO_Y_COMA
+
+    LLAVE_R         shift and go to state 12
+    INT             shift and go to state 8
+    READ            shift and go to state 9
+    PRINTF          shift and go to state 10
+    ID              shift and go to state 5
+
+    declaracion                    shift and go to state 13
+
+state 7
+
+    (3) declaraciones -> declaracion .
+
+    LLAVE_R         reduce using rule 3 (declaraciones -> declaracion .)
+    INT             reduce using rule 3 (declaraciones -> declaracion .)
+    READ            reduce using rule 3 (declaraciones -> declaracion .)
+    PRINTF          reduce using rule 3 (declaraciones -> declaracion .)
+    ID              reduce using rule 3 (declaraciones -> declaracion .)
+
+
+state 8
+
+    (4) declaracion -> INT . ID PUNTO_Y_COMA
+
+    ID              shift and go to state 14
+
+
+state 9
+
+    (5) declaracion -> READ . ID PUNTO_Y_COMA
+
+    ID              shift and go to state 15
+
+
+state 10
+
+    (6) declaracion -> PRINTF . CADENA PUNTO_Y_COMA
+
+    CADENA          shift and go to state 16
+
+
+state 11
+
+    (7) declaracion -> ID IGUAL . expresion PUNTO_Y_COMA
+    (8) expresion -> . ID MAS ID
+    (9) expresion -> . ID MENOS ID
+    (10) expresion -> . ID MULTIPLICACION ID
+    (11) expresion -> . ID DIVISION ID
+    (12) expresion -> . NUM
+
+    ID              shift and go to state 17
+    NUM             shift and go to state 19
+
+    expresion                      shift and go to state 18
+
+state 12
+
+    (1) program -> PROGRAM ID LLAVE_L declaraciones LLAVE_R . END
+
+    END             shift and go to state 20
+
+
+state 13
+
+    (2) declaraciones -> declaraciones declaracion .
+
+    LLAVE_R         reduce using rule 2 (declaraciones -> declaraciones declaracion .)
+    INT             reduce using rule 2 (declaraciones -> declaraciones declaracion .)
+    READ            reduce using rule 2 (declaraciones -> declaraciones declaracion .)
+    PRINTF          reduce using rule 2 (declaraciones -> declaraciones declaracion .)
+    ID              reduce using rule 2 (declaraciones -> declaraciones declaracion .)
+
+
+state 14
+
+    (4) declaracion -> INT ID . PUNTO_Y_COMA
+
+    PUNTO_Y_COMA    shift and go to state 21
+
+
+state 15
+
+    (5) declaracion -> READ ID . PUNTO_Y_COMA
+
+    PUNTO_Y_COMA    shift and go to state 22
+
+
+state 16
+
+    (6) declaracion -> PRINTF CADENA . PUNTO_Y_COMA
+
+    PUNTO_Y_COMA    shift and go to state 23
+
+
+state 17
+
+    (8) expresion -> ID . MAS ID
+    (9) expresion -> ID . MENOS ID
+    (10) expresion -> ID . MULTIPLICACION ID
+    (11) expresion -> ID . DIVISION ID
+
+    MAS             shift and go to state 24
+    MENOS           shift and go to state 25
+    MULTIPLICACION  shift and go to state 26
+    DIVISION        shift and go to state 27
+
+
+state 18
+
+    (7) declaracion -> ID IGUAL expresion . PUNTO_Y_COMA
+
+    PUNTO_Y_COMA    shift and go to state 28
+
+
+state 19
+
+    (12) expresion -> NUM .
+
+    PUNTO_Y_COMA    reduce using rule 12 (expresion -> NUM .)
+
+
+state 20
+
+    (1) program -> PROGRAM ID LLAVE_L declaraciones LLAVE_R END .
+
+    $end            reduce using rule 1 (program -> PROGRAM ID LLAVE_L declaraciones LLAVE_R END .)
+
+
+state 21
+
+    (4) declaracion -> INT ID PUNTO_Y_COMA .
+
+    LLAVE_R         reduce using rule 4 (declaracion -> INT ID PUNTO_Y_COMA .)
+    INT             reduce using rule 4 (declaracion -> INT ID PUNTO_Y_COMA .)
+    READ            reduce using rule 4 (declaracion -> INT ID PUNTO_Y_COMA .)
+    PRINTF          reduce using rule 4 (declaracion -> INT ID PUNTO_Y_COMA .)
+    ID              reduce using rule 4 (declaracion -> INT ID PUNTO_Y_COMA .)
+
+
+state 22
+
+    (5) declaracion -> READ ID PUNTO_Y_COMA .
+
+    LLAVE_R         reduce using rule 5 (declaracion -> READ ID PUNTO_Y_COMA .)
+    INT             reduce using rule 5 (declaracion -> READ ID PUNTO_Y_COMA .)
+    READ            reduce using rule 5 (declaracion -> READ ID PUNTO_Y_COMA .)
+    PRINTF          reduce using rule 5 (declaracion -> READ ID PUNTO_Y_COMA .)
+    ID              reduce using rule 5 (declaracion -> READ ID PUNTO_Y_COMA .)
+
+
+state 23
+
+    (6) declaracion -> PRINTF CADENA PUNTO_Y_COMA .
+
+    LLAVE_R         reduce using rule 6 (declaracion -> PRINTF CADENA PUNTO_Y_COMA .)
+    INT             reduce using rule 6 (declaracion -> PRINTF CADENA PUNTO_Y_COMA .)
+    READ            reduce using rule 6 (declaracion -> PRINTF CADENA PUNTO_Y_COMA .)
+    PRINTF          reduce using rule 6 (declaracion -> PRINTF CADENA PUNTO_Y_COMA .)
+    ID              reduce using rule 6 (declaracion -> PRINTF CADENA PUNTO_Y_COMA .)
+
+
+state 24
+
+    (8) expresion -> ID MAS . ID
+
+    ID              shift and go to state 29
+
+
+state 25
+
+    (9) expresion -> ID MENOS . ID
+
+    ID              shift and go to state 30
+
+
+state 26
+
+    (10) expresion -> ID MULTIPLICACION . ID
+
+    ID              shift and go to state 31
+
+
+state 27
+
+    (11) expresion -> ID DIVISION . ID
+
+    ID              shift and go to state 32
+
+
+state 28
+
+    (7) declaracion -> ID IGUAL expresion PUNTO_Y_COMA .
+
+    LLAVE_R         reduce using rule 7 (declaracion -> ID IGUAL expresion PUNTO_Y_COMA .)
+    INT             reduce using rule 7 (declaracion -> ID IGUAL expresion PUNTO_Y_COMA .)
+    READ            reduce using rule 7 (declaracion -> ID IGUAL expresion PUNTO_Y_COMA .)
+    PRINTF          reduce using rule 7 (declaracion -> ID IGUAL expresion PUNTO_Y_COMA .)
+    ID              reduce using rule 7 (declaracion -> ID IGUAL expresion PUNTO_Y_COMA .)
+
+
+state 29
+
+    (8) expresion -> ID MAS ID .
+
+    PUNTO_Y_COMA    reduce using rule 8 (expresion -> ID MAS ID .)
+
+
+state 30
+
+    (9) expresion -> ID MENOS ID .
+
+    PUNTO_Y_COMA    reduce using rule 9 (expresion -> ID MENOS ID .)
+
+
+state 31
+
+    (10) expresion -> ID MULTIPLICACION ID .
+
+    PUNTO_Y_COMA    reduce using rule 10 (expresion -> ID MULTIPLICACION ID .)
+
+
+state 32
+
+    (11) expresion -> ID DIVISION ID .
+
+    PUNTO_Y_COMA    reduce using rule 11 (expresion -> ID DIVISION ID .)
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador Léxico y Sintáctico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #343a40;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+            padding: 20px;
+            border: 1px solid #c3e6cb;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px; /* Ancho máximo para centrado */
+            margin-left: auto;
+            margin-right: auto; /* Centrar el contenedor */
+        }
+        h2 {
+            color: #155724;
+            margin-bottom: 20px;
+            text-align: center; /* Centramos el título */
+        }
+        textarea {
+            height: 200px;
+            resize: none;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            width: 100%; /* Botón a ancho completo */
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result-table {
+            margin-top: 20px;
+        }
+        .table th {
+            background-color: #e2f0d6;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Analizador Léxico y Sintáctico</h2>
+        <textarea id="codeInput" class="form-control" placeholder="Escribe tu código aquí..."></textarea>
+        <button id="analyzeBtn" class="btn btn-primary mt-3">Analizar</button>
+        <div id="result" class="mt-4"></div>
+    </div>
+
+    <script>
+        document.getElementById('analyzeBtn').onclick = function() {
+            const code = document.getElementById('codeInput').value;
+            fetch('/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ code: code }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                let resultHtml = '<h4>Tokens:</h4><table class="table table-striped result-table"><thead><tr><th>Valor</th><th>Reservada</th><th>Identificador</th><th>Otro</th></tr></thead><tbody>';
+                data.tokens.forEach(token => {
+                    resultHtml += `<tr><td>${token.value}</td>`;
+                    resultHtml += `<td>${token.category === 'Reservada' ? 'X' : ''}</td>`;
+                    resultHtml += `<td>${token.category === 'Identificador' ? 'X' : ''}</td>`;
+                    resultHtml += `<td>${token.category === 'Otro' ? 'X' : ''}</td>`;
+                    resultHtml += '</tr>';
+                });
+                resultHtml += '</tbody></table>';
+                resultHtml += `<h4>Resultado Sintáctico:</h4><p>${data.syntax}</p>`;
+                document.getElementById('result').innerHTML = resultHtml;
+            });
+        };
+    </script>
+    
+</body>
+</html>
